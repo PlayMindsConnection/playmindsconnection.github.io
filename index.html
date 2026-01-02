@@ -152,7 +152,7 @@
         
         @keyframes titleGlow {
             0% { filter: drop-shadow(0 5px 15px rgba(76, 175, 80, 0.5)); }
-            100% { filter: drop-shadow(0 5px 25px rgba(33, 150, 243, 0.7)); }
+            100% { filter: drop-shadow(0 5-page 25px rgba(33, 150, 243, 0.7)); }
         }
         
         .tagline {
@@ -612,9 +612,24 @@
                         </div>
                     </div>
                     
-                    <p style="margin-top: 30px; font-weight: bold; color: #4CAF50; font-size: 1.2em;">
+                    <p style="margin-top: 30px; font-weight: bold; color: #4CAF50; font-size: 1.2em; text-align: center;">
                         <i class="fas fa-store"></i> Available on Unity Asset Store
                     </p>
+                    
+                    <!-- AJOUTÉ ICI -->
+                    <div style="margin-top: 20px; padding: 20px; background: rgba(76, 175, 80, 0.1); border-radius: 10px; text-align: center;">
+                        <p style="margin-bottom: 10px;">
+                            <i class="fas fa-search"></i> 
+                            Search for: <strong>"Touch React Shadergraph"</strong>
+                        </p>
+                        <p style="font-size: 0.95em; color: #b0b0b0;">
+                            Publisher: <strong>PlayMind</strong>
+                        </p>
+                        <p style="margin-top: 15px; font-size: 0.9em;">
+                            <i class="fas fa-info-circle"></i> 
+                            Need help finding it? Email me and I'll guide you.
+                        </p>
+                    </div>
                 </div>
                 
                 <div style="margin-top: 40px; padding: 25px; background: rgba(40, 45, 60, 0.9); border-radius: 12px; border-left: 4px solid #2196F3;">
@@ -645,6 +660,30 @@
                         <strong><i class="fas fa-clock"></i> Response Time:</strong> Within 24-48 hours
                     </p>
                 </div>
+
+                <!-- AJOUTÉ ICI -->
+                <div style="margin-top: 30px; padding: 25px; background: rgba(33, 150, 243, 0.1); border-radius: 12px; border-left: 4px solid #4CAF50;">
+                    <h4 style="color: #e0e0e0; margin-bottom: 15px;">
+                        <i class="fas fa-hands-helping"></i> Full Support & Assistance
+                    </h4>
+                    
+                    <p style="color: #b0b0b0; margin-bottom: 15px;">
+                        <i class="fas fa-envelope"></i> 
+                        <strong>I read every email personally.</strong> Whether you need help with setup, 
+                        have questions, or want to share feedback - I'm here to assist you.
+                    </p>
+                    
+                    <p style="color: #b0b0b0; margin-bottom: 15px;">
+                        <i class="fas fa-comments"></i> 
+                        <strong>Your feedback matters.</strong> It helps me improve my assets and 
+                        create better tools for the Unity community.
+                    </p>
+                    
+                    <p style="color: #b0b0b0;">
+                        <i class="fas fa-clock"></i> 
+                        <strong>Quick response:</strong> I typically reply within 24-48 hours.
+                    </p>
+                </div>
             </div>
         </div>
     </main>
@@ -662,7 +701,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT INTERACTIF (MÊME QUE AVANT) -->
+    <!-- SCRIPT INTERACTIF -->
     <script>
         // Curseur personnalisé
         const cursor = document.getElementById('cursor');
@@ -672,29 +711,24 @@
         let mouseY = 0;
         let connectionLines = [];
         
-        // Suivre la souris
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Mettre à jour le curseur
             cursor.style.left = (mouseX - 10) + 'px';
             cursor.style.top = (mouseY - 10) + 'px';
             cursorPulse.style.left = (mouseX - 20) + 'px';
             cursorPulse.style.top = (mouseY - 20) + 'px';
             
-            // Créer des particules
             if (Math.random() > 0.7) {
                 createParticle(mouseX, mouseY);
             }
             
-            // Mettre à jour les connections (uniquement dans le header)
             if (e.clientY < window.innerHeight) {
                 updateConnections();
             }
         });
         
-        // Créer des particules flottantes
         function createFloatingParticles() {
             const container = document.getElementById('particles');
             for (let i = 0; i < 30; i++) {
@@ -719,7 +753,6 @@
             }
         }
         
-        // Créer une particule
         function createParticle(x, y) {
             const particle = document.createElement('div');
             particle.style.cssText = `
@@ -755,7 +788,6 @@
             document.head.appendChild(style);
         }
         
-        // Mettre à jour les connections
         function updateConnections() {
             connectionLines.forEach(line => line.remove());
             connectionLines = [];
@@ -781,7 +813,6 @@
             });
         }
         
-        // Créer une connection
         function createConnection(x1, y1, x2, y2, distance) {
             const line = document.createElement('div');
             line.className = 'connection-line';
@@ -811,7 +842,6 @@
             }
         }
         
-        // Paquet de données
         function createDataPacket(startX, startY, endX, endY, length, angle) {
             const packet = document.createElement('div');
             packet.style.cssText = `
@@ -860,7 +890,6 @@
             animatePacket();
         }
         
-        // Trouver bulle la plus proche
         function findNearestBubble(x, y) {
             let nearest = null;
             let minDistance = Infinity;
@@ -884,7 +913,6 @@
             return nearest;
         }
         
-        // Cliquer sur bulle
         bubbles.forEach(bubble => {
             bubble.addEventListener('click', () => {
                 bubble.style.transform = 'scale(1.5)';
@@ -910,7 +938,6 @@
             });
         });
         
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -921,10 +948,8 @@
             });
         });
         
-        // Initialiser
         createFloatingParticles();
         updateConnections();
-        
         setInterval(updateConnections, 100);
     </script>
 </body>
