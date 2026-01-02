@@ -19,104 +19,101 @@
             overflow-x: hidden;
         }
         
-        /* PARALLAX EFFECT */
-        .parallax {
+        /* PARALLAX PURE CSS - FONCTIONNE SANS JS */
+        .parallax-container {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            perspective: 1px;
+        }
+        
+        .parallax-section {
             position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            transform-style: preserve-3d;
+            z-index: 1;
         }
         
         .parallax-bg {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 120%;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(135deg, 
                 #1a237e 0%, 
                 #283593 25%, 
                 #3949ab 50%, 
                 #5c6bc0 75%, 
                 #7986cb 100%);
-            transform: translateY(0);
-            will-change: transform;
-            z-index: -2;
-        }
-        
-        .parallax-bg::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, #2c3e50, transparent);
-        }
-        
-        .parallax-content {
-            text-align: center;
-            color: white;
-            padding: 20px;
-            transform: translateY(0);
-            will-change: transform;
-            z-index: 1;
-        }
-        
-        /* CLOUDS PARALLAX */
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 20s infinite linear;
+            transform: translateZ(-1px) scale(2);
             z-index: -1;
         }
         
-        .cloud:nth-child(1) {
-            width: 150px;
-            height: 60px;
+        /* BULLES ANIMÉES CORRECTES */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            animation: floatBubble 15s infinite ease-in-out;
+            z-index: 0;
+        }
+        
+        .bubble-1 {
+            width: 120px;
+            height: 120px;
             top: 20%;
             left: 10%;
             animation-delay: 0s;
         }
         
-        .cloud:nth-child(2) {
-            width: 200px;
+        .bubble-2 {
+            width: 80px;
             height: 80px;
-            top: 40%;
+            top: 60%;
             right: 15%;
-            animation-delay: -5s;
+            animation-delay: -3s;
         }
         
-        .cloud:nth-child(3) {
-            width: 120px;
-            height: 50px;
-            bottom: 30%;
+        .bubble-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
             left: 20%;
-            animation-delay: -10s;
+            animation-delay: -7s;
         }
         
-        @keyframes float {
-            0% { transform: translateX(-100px) translateY(0); }
-            50% { transform: translateX(100px) translateY(-20px); }
-            100% { transform: translateX(-100px) translateY(0); }
+        @keyframes floatBubble {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translateY(-40px) translateX(20px);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(20px) translateX(40px);
+                opacity: 0.5;
+            }
+            75% {
+                transform: translateY(-30px) translateX(-20px);
+                opacity: 0.8;
+            }
         }
         
-        /* CONTENT SECTIONS */
-        .content-section {
-            padding: 80px 20px;
-            background: #f8f9fa;
-            position: relative;
+        /* CONTENT */
+        .parallax-content {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            max-width: 800px;
+            z-index: 2;
         }
         
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        /* HEADER */
         h1 {
             font-size: 3.5em;
             margin-bottom: 20px;
@@ -129,6 +126,7 @@
             margin-bottom: 30px;
         }
         
+        /* BOUTON QUI MARCHE */
         .cta-button {
             display: inline-block;
             background: #4CAF50;
@@ -149,6 +147,19 @@
             color: #4CAF50;
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* SECTIONS NORMALES */
+        .content-section {
+            position: relative;
+            background: #f8f9fa;
+            padding: 80px 20px;
+            z-index: 10;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
         }
         
         /* SECTION CARDS */
@@ -275,12 +286,12 @@
                 font-size: 2.5em;
             }
             
-            .section-card {
-                padding: 25px;
+            .parallax-section {
+                height: 90vh;
             }
             
-            .parallax {
-                height: 80vh;
+            .section-card {
+                padding: 25px;
             }
         }
         
@@ -303,28 +314,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- PARALLAX HERO SECTION -->
-    <section class="parallax" id="hero">
-        <div class="parallax-bg" id="parallaxBg"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        
-        <div class="parallax-content" id="parallaxContent">
-            <h1>PlayMind Studio</h1>
-            <p class="tagline">Professional Unity Assets & Interactive Systems</p>
-            <p>Creating immersive experiences that bring game worlds to life</p>
-            <a href="#about" class="cta-button">
-                <i class="fas fa-arrow-down"></i> Discover More
-            </a>
-        </div>
-    </section>
+    <!-- PARALLAX SECTION -->
+    <div class="parallax-container">
+        <section class="parallax-section" id="hero">
+            <div class="parallax-bg"></div>
+            <div class="bubble bubble-1"></div>
+            <div class="bubble bubble-2"></div>
+            <div class="bubble bubble-3"></div>
+            
+            <div class="parallax-content">
+                <h1>PlayMind Studio</h1>
+                <p class="tagline">Professional Unity Assets & Interactive Systems</p>
+                <p>Creating immersive experiences that bring game worlds to life</p>
+                <!-- BOUTON QUI FONCTIONNE - lien direct vers la section -->
+                <a href="#about" class="cta-button">
+                    <i class="fas fa-arrow-down"></i> Discover More
+                </a>
+            </div>
+        </section>
+    </div>
 
     <!-- MAIN CONTENT -->
-    <div class="content-section">
+    <div class="content-section" id="about">
         <div class="container">
             <!-- ABOUT SECTION -->
-            <div class="section-card" id="about">
+            <div class="section-card">
                 <h2><i class="fas fa-user"></i> About Me</h2>
                 <p>I'm a professional Unity developer with 4+ years of experience creating interactive systems, visual effects, and optimized game assets. My passion is building tools that help other developers create amazing gaming experiences.</p>
                 
@@ -424,51 +438,19 @@
         </div>
     </footer>
 
-    <!-- PARALLAX SCRIPT -->
+    <!-- SCRIPT MINIMAL POUR LE SMOOTH SCROLL -->
     <script>
-        // Effet parallax simple
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallaxBg = document.getElementById('parallaxBg');
-            const parallaxContent = document.getElementById('parallaxContent');
-            
-            // Déplacement différentiel pour l'effet parallax
-            if (parallaxBg) {
-                parallaxBg.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
-            }
-            if (parallaxContent) {
-                parallaxContent.style.transform = 'translateY(' + (scrolled * 0.3) + 'px)';
-            }
-            
-            // Changement de couleur basé sur le scroll
-            const hero = document.getElementById('hero');
-            if (hero) {
-                const opacity = 1 - Math.min(scrolled / 500, 0.8);
-                hero.style.opacity = opacity;
-            }
-        });
-
-        // Animation des nuages
-        document.addEventListener('DOMContentLoaded', function() {
-            const clouds = document.querySelectorAll('.cloud');
-            clouds.forEach((cloud, index) => {
-                cloud.style.animationDuration = (20 + Math.random() * 10) + 's';
-                cloud.style.animationDelay = (index * -5) + 's';
-            });
-        });
-
-        // Smooth scroll pour les liens
+        // Smooth scroll simple et fiable
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+                const href = this.getAttribute('href');
                 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
+                // Si c'est le bouton Discover More
+                if (href === '#about') {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
